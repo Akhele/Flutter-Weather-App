@@ -20,6 +20,7 @@ class _MyAppState extends State<MyApp> {
   String location = "London";
   int woeid = 44418;
   String weather = "clear";
+  String abbreviation = "sn";
 
 
   //API
@@ -50,6 +51,11 @@ class _MyAppState extends State<MyApp> {
     setState(() {
       temperature = data['the_temp'].round();
       weather = data["weather_state_name"].replaceAll(' ', '').toLowerCase();
+
+      // Weather Icon
+
+      abbreviation = data["weather_state_abbr"];
+
     });
 
   }
@@ -78,6 +84,13 @@ class _MyAppState extends State<MyApp> {
             children: [
               Column(
                 children: [
+                  Center(
+                    child: Image.network(
+                        'https://www.metaweather.com/static/img/weather/png/$abbreviation.png',
+                      width: 170,
+
+                    ),
+                  ),
                   Center(
                     child: Text(
                       temperature.toString() + ' C',
