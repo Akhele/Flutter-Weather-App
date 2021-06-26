@@ -22,11 +22,15 @@ class _MyAppState extends State<MyApp> {
   String weather = "clear";
   String abbreviation = "sn";
 
-
   //API
 
   String searchApiUrl = "https://www.metaweather.com/api/location/search/?query=";
   String locationApiUrl = "https://www.metaweather.com/api/location/";
+
+  initState() {
+    super.initState();
+    fetchLocation();
+  }
 
   void fetchSearch( String input) async
   {
