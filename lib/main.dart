@@ -15,8 +15,8 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   int temperature = -5000;
-  String location = "London";
-  int woeid = 44418;
+  String location = "Casablanca";
+  int woeid = 1532755;
   String weather = "clear";
   String abbreviation = "sn";
 
@@ -59,9 +59,9 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-  void onTextFieldSubmitted(String input) {
-    fetchSearch(input);
-    fetchLocation();
+  void onTextFieldSubmitted(String input) async {
+    await fetchSearch(input);
+    await fetchLocation();
   }
 
   @override
