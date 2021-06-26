@@ -19,6 +19,7 @@ class _MyAppState extends State<MyApp> {
   int woeid = 1532755;
   String weather = "clear";
   String abbreviation = "sn";
+  String errorMgs= "";
 
   //API
 
@@ -32,13 +33,22 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<void> fetchSearch(String input) async {
-    var SearchResult = await http.get(Uri.parse(searchApiUrl + input));
-    var result = json.decode(SearchResult.body)[0];
+    try {
+      var SearchResult = await http.get(Uri.parse(searchApiUrl + input));
+      var result = json.decode(SearchResult.body)[0];
 
-    setState(() {
-      location = result['title'];
-      woeid = result['woeid'];
-    });
+      setState(() {
+        location = result['title'];
+        woeid = result['woeid'];
+      });
+      errorMgs = "";
+    }
+    catch(error)
+    {
+      setState(() {
+        errorMgs = "Error..nothing to show, Please try another city";
+      });
+    }
   }
 
   Future<void> fetchLocation() async {
@@ -67,6 +77,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Container(
         decoration: BoxDecoration(
             image: DecorationImage(
@@ -124,6 +135,12 @@ class _MyAppState extends State<MyApp> {
                                 Icons.search,
                                 color: Colors.white,
                               )),
+                        ),
+                      ),
+                      Container(
+                        child: Text(
+                          errorMgs,textAlign: TextAlign.center,
+                          style: TextStyle(color: Colors.red, fontSize: 18),
                         ),
                       )
                     ])
