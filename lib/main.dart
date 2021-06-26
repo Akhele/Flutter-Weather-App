@@ -31,7 +31,7 @@ class _MyAppState extends State<MyApp> {
     fetchLocation();
   }
 
-  void fetchSearch(String input) async {
+  Future<void> fetchSearch(String input) async {
     var SearchResult = await http.get(Uri.parse(searchApiUrl + input));
     var result = json.decode(SearchResult.body)[0];
 
@@ -41,7 +41,7 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-  void fetchLocation() async {
+  Future<void> fetchLocation() async {
     var locationResult =
         await http.get(Uri.parse(locationApiUrl + woeid.toString()));
     var result = json.decode(locationResult.body);
@@ -59,7 +59,7 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-  void onTextFieldSubmitted(String input) async {
+  Future<void> onTextFieldSubmitted(String input) async {
     await fetchSearch(input);
     await fetchLocation();
   }
